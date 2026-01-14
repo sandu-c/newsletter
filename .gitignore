@@ -1,0 +1,22 @@
+dist/
+*.pdf
+.DS_Store
+
+# Skills and prompts (local only, not shared)
+.kiro/
+prompt.md
+
+# Build symlinks (created by build.sh for any year dir)
+20*/graceful-genetics
+20*/banners
+20*/logos
+20*/fonts
+20*/team
+20*/platform.jpg
+
+# Spurious circular symlinks (safe to ignore)
+banners/banners
+fonts/fonts
+graceful-genetics/graceful-genetics
+logos/logos
+team/team

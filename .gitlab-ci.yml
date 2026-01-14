@@ -1,0 +1,37 @@
+stages:
+  - build
+  - pages
+
+build-newsletter:
+  stage: build
+  image: ghcr.io/typst/typst:latest
+  script:
+    - chmod +x build.sh
+    - sh build.sh all
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 30 days
+  rules:
+    - changes:
+        - "20*/*.typ"
+        - "build.sh"
+        - "viewer.html"
+      when: always
+
+pages:
+  stage: pages
+  needs:
+    - build-newsletter
+  script:
+    - mkdir -p public
+    - cp -r dist/* public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - changes:
+        - "20*/*.typ"
+        - "build.sh"
+        - "viewer.html"
+      when: always
