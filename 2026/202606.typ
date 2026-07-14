@@ -8,12 +8,12 @@
 #let lightgray = rgb("#C9CED8")
 
 #show: graceful-genetics.template.with(
-  title: [Six Migrations, One Month],
+  title: [Cheaper Than Spot],
   authors: (
     (
       name: "June 2026",
       department: "Infrastructure and Reliability",
-      institution: "Fortris",
+      institution: "",
       city: "Remote",
       country: "Global",
       mail: "platform@fortris.com",
@@ -26,32 +26,28 @@
   ),
   keywords: (
     "Platform Engineering",
+    "AWS MSK",
     "Kafka",
-    "MSK",
     "Harbor",
-    "Container Registry",
-    "Developer Portal",
     "Backstage",
-    "Change Management",
-    "Spot Instances",
+    "Cost Optimization",
     "Security",
+    "Change Management",
   ),
   doi: "10.0000/fortris.platform.2026.06",
   abstract: [
-    June had no single headline. Instead, five major initiatives advanced in
-    parallel: Kafka began its move to managed cloud, the container registry
-    migrated to platform-owned infrastructure, the developer portal started
-    taking shape, and change management automation laid its main building
-    blocks. The platform got cheaper by reversing a previous cost assumption,
-    and security patched two urgent vulnerabilities within days. Every thread
-    moved forward with measurable progress. This is what a healthy platform
-    looks like when it stops firefighting and starts building.
+    Spot instances cost more than on-demand. That was the discovery that
+    rewrote a cost assumption held since 2025. Meanwhile, Kafka quietly
+    prepared to leave Docker Swarm, the container registry began its final
+    migration, and the internal developer portal started taking shape in
+    staging. Two security vulnerabilities were patched within days
+    of disclosure. Five initiatives advanced. None stalled. Every finish
+    line moved closer.
   ],
 )
 
 #set text(font: ("Manrope", "Arial", "Helvetica"), fill: gray)
 
-// Status overview visual
 #v(2mm)
 
 #block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
@@ -72,9 +68,9 @@
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
     [#text(size: 6.5pt, fill: gray)[Syncing, pipelines switched]],
 
-    [#text(size: 7pt, fill: gray)[Developer Portal (EDIP)]],
+    [#text(size: 7pt, fill: gray)[Developer Portal]],
     [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
-    [#text(size: 6.5pt, fill: gray)[Service panels, autodiscovery]],
+    [#text(size: 6.5pt, fill: gray)[Autodiscovery, service pages]],
 
     [#text(size: 7pt, fill: gray)[CHG Orchestrator]],
     [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
@@ -92,9 +88,48 @@
 
 #v(6mm)
 
-= Kafka Is Leaving Swarm
+= The Assumption That Cost Us Money
 
-Part of a cross-team initiative to replace self-hosted Kafka with AWS Managed Streaming for Kafka (MSK). The platform shipped the tooling layer that makes the transition invisible to developers.
+Spot instances were supposed to be cheaper. They were not.
+
+With AWS Savings Plans active, on-demand pricing dropped to \$0.095/hr — while spot remained at \$0.115/hr for the same instance type. The platform had been paying a 17% premium for *less* stability.
+
+#v(3mm)
+
+#cetz.canvas(length: 1mm, {
+  import cetz.draw: *
+
+  let bar-h = 7
+  let max-w = 45
+
+  // Spot bar (full width = more expensive)
+  rect((0, bar-h + 3), (max-w, 2 * bar-h + 3), fill: lightgray, stroke: none, radius: 2pt)
+  content((max-w + 2, bar-h + 3 + bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: gray)[Spot · \$0.115/hr]])
+
+  // On-demand bar (shorter = cheaper)
+  let od-w = max-w * 0.095 / 0.115
+  rect((0, 0), (od-w, bar-h), fill: red, stroke: none, radius: 2pt)
+  content((od-w + 2, bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: red)[On-Demand · \$0.095/hr]])
+})
+
+#v(2mm)
+#align(center)[
+  #text(size: 6pt, style: "italic", fill: gray)[17% cheaper. More stable. Previous assumption reversed.]
+]
+
+#v(4mm)
+
+Persistent workloads moved back to on-demand the same week. Only short-lived jobs — CI builds, data pipelines — remain on spot where interruption is acceptable.
+
+The platform reversed its own decision based on data. That takes more discipline than making the decision in the first place.
+
+= Kafka Started Packing
+
+Self-hosted Kafka on Docker Swarm is being replaced by AWS Managed Streaming for Kafka. The platform's job: make sure developers don't notice when it happens.
+
+That required building a tooling layer that works identically across both clusters — so the actual cutover becomes a configuration change, not a migration project for every team.
+
+What shipped:
 
 #v(3mm)
 
@@ -115,56 +150,48 @@ Part of a cross-team initiative to replace self-hosted Kafka with AWS Managed St
 
 #v(4mm)
 
-The MSK cluster itself is managed by Infrastructure. Platform provides the developer experience. The tooling is dual-mode — when MSK goes live, services will not notice the change. That is the point: migrations should be invisible to application teams.
+The Kafka cluster itself moves when Infrastructure flips the switch. The tooling is already dual-mode. Services will not need to change.
 
-= The Container Registry Is Moving
+= Every Container Image Is Moving
 
-Harbor — where every container image in the organization lives — is migrating from corporate legacy infrastructure to platform-owned at `registry.hub.codecraft.tools`.
+Harbor — the registry that stores every container image in the company — is migrating from corporate legacy infrastructure to platform-owned AWS. Without this, a single Docker Hub outage or rate limit could freeze every deployment in every environment.
+
+The new instance is live at `registry.hub.codecraft.tools`. Replication runs continuously from old to new. GitLab runners, Helm charts, ArgoCD, and TestContainers have all switched to the new source.
 
 #v(3mm)
 
 #block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
   #text(size: 7pt, weight: "bold", fill: gray)[HARBOR MIGRATION PROGRESS]
   #v(3mm)
-  #grid(
-    columns: (auto, 1fr),
-    gutter: 2mm,
-    [#text(size: 7pt, fill: red)[●]],
-    [#text(size: 7pt, fill: gray)[New instance live — HA, Keycloak SSO, RDS database, S3 storage]],
-    [#text(size: 7pt, fill: red)[●]],
-    [#text(size: 7pt, fill: gray)[Replication running — old instance pushes everything to new]],
-    [#text(size: 7pt, fill: red)[●]],
-    [#text(size: 7pt, fill: gray)[GitLab runners switched to new instance]],
-    [#text(size: 7pt, fill: red)[●]],
-    [#text(size: 7pt, fill: gray)[Helm charts and ArgoCD pointed to new registry]],
-    [#text(size: 7pt, fill: red)[●]],
-    [#text(size: 7pt, fill: gray)[TestContainers configured for new source]],
-    [#text(size: 7pt, fill: lightgray)[○]],
-    [#text(size: 7pt, fill: gray)[Robot accounts — pending]],
-    [#text(size: 7pt, fill: lightgray)[○]],
-    [#text(size: 7pt, fill: gray)[Full pipeline cutover — pending]],
-    [#text(size: 7pt, fill: lightgray)[○]],
-    [#text(size: 7pt, fill: gray)[Zero-pull verification — pending]],
-  )
+  #text(size: 6.5pt, fill: gray)[
+    ● New instance live — HA, Keycloak SSO, RDS database, S3 storage\
+    ● Replication running — old instance pushes everything to new\
+    ● GitLab runners switched to new instance\
+    ● Helm charts and ArgoCD pointed to new registry\
+    ● TestContainers configured for new source\
+    #text(fill: lightgray)[○ Robot accounts — pending]\
+    #text(fill: lightgray)[○ Full pipeline cutover — pending]\
+    #text(fill: lightgray)[○ Zero-pull verification — pending]
+  ]
 ]
 
 #v(4mm)
 
-Same careful pattern as MongoDB: sync, switch progressively, verify, then cut the old. The old instance remains active until pull metrics confirm nothing reads from it anymore.
+Same pattern as every migration this year: sync first, switch progressively, verify, then cut the old. The old instance stays up until pull metrics hit zero for a week.
 
-= The Developer Portal Took Shape
+= The Developer Portal Started Taking Shape
 
-The Backstage-based internal developer portal (EDIP) went from concept to functional foundation:
+An internal developer portal is being built on Backstage. The goal: a single place where engineers see everything about their services — versions deployed across environments, pipeline status, sync state, alerts — without jumping between five different tools.
 
-- *Service overview panels* auto-generated from GitLab metadata — owner, team, repository links, labels
-- *Autodiscovery*: drop a `catalog-info.yaml` file in any repo, get a portal page automatically
-- *k8s-versions backend* fetches service versions across environments in background
+What is getting shaped today aims for: autodiscovery of services from repositories, auto-generated overview pages, and live version tracking across environments. When it ships, onboarding will be as simple as dropping a file in your repo.
 
-This is the foundation layer. Kubernetes status, ArgoCD sync state, Grafana alerts, and architecture views come next. But the pattern is established: metadata in, visibility out.
+Not there yet. Getting closer.
 
-= Change Management Will Automate Itself
+= Change Tickets Will Write Themselves
 
-A lightweight API was built to orchestrate Jira change tickets from pipelines — the CHG Orchestrator:
+Today, every production deployment requires someone to manually create a change ticket, collect approvals, and close it after deployment. It works, but it is toil.
+
+The foundation for eliminating that toil was built this month: a dedicated API that can create change tickets, validate approvals, block unauthorized deployments, and close tickets after success — all programmatically.
 
 #v(3mm)
 
@@ -175,7 +202,6 @@ A lightweight API was built to orchestrate Jira change tickets from pipelines �
   let box-w = 14
   let gap = 2
 
-  // 5 boxes in a row, compact
   rect((0, 0), (box-w, box-h), fill: rgb("#f0f0f4"), stroke: 0.5pt + lightgray, radius: 2pt)
   content((box-w / 2, box-h / 2), [#text(size: 4.5pt, weight: "bold", fill: gray)[Merge]])
 
@@ -202,77 +228,29 @@ A lightweight API was built to orchestrate Jira change tickets from pipelines �
 
 #v(2mm)
 #align(center)[
-  #text(size: 6pt, style: "italic", fill: gray)[Fully automated: merge → ticket → approval gate → deploy → close. Zero manual CHG creation.]
+  #text(size: 6pt, style: "italic", fill: gray)[The target flow. The API is built. Pipeline wiring comes next.]
 ]
 
 #v(4mm)
 
-The engine is deployed. All actions are logged and token-authenticated. Pipeline integration is the next step — when connected, production deployments will require zero manual change ticket creation. Compliance without friction.
+The API is tested, authenticated, and deployed. It is not yet plugged into pipelines — that is the next step. When it connects, no developer will create a change ticket by hand again.
 
-= Spot Instances Were More Expensive Than On-Demand
+= Two Vulnerabilities, Two Days
 
-A counterintuitive discovery: with AWS Savings Plans active, spot instances (\$0.115/hr) cost *more* than on-demand (\$0.095/hr) for the same instance type.
+OpenBao disclosed a HIGH-severity vulnerability — cross-namespace lease revocation bypassing access controls. Without the patch, any authenticated user could revoke secrets belonging to other teams.
 
-#v(3mm)
+Patched and deployed within days.
 
-#cetz.canvas(length: 1mm, {
-  import cetz.draw: *
+Separately, the DigitalOcean Harbor cluster's Nginx ingress controller had an unpatched CVE and was no longer maintained upstream. Replaced with Traefik — zero downtime, DNS repointed, old controller removed.
 
-  let bar-h = 7
-  let max-w = 45
+Both responses followed the same pattern: detect, assess, act, verify. Days, not weeks.
 
-  // Spot bar (full width = more expensive)
-  rect((0, bar-h + 3), (max-w, 2 * bar-h + 3), fill: lightgray, stroke: none, radius: 2pt)
-  content((max-w + 2, bar-h + 3 + bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: gray)[Spot · \$0.115/hr]])
+= Also This Month
 
-  // On-demand bar (shorter = cheaper)
-  let od-w = max-w * 0.095 / 0.115
-  rect((0, 0), (od-w, bar-h), fill: red, stroke: none, radius: 2pt)
-  content((od-w + 2, bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: red)[On-Demand · \$0.095/hr]])
-})
+Preview environments became self-service — any team onboards with a single script. The `@gitlab-runner` user was replaced with a scoped service account: EUR 400/year saved, permissions tightened. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
 
-#v(2mm)
-#align(center)[
-  #text(size: 6pt, style: "italic", fill: gray)[With Savings Plans, on-demand is 17% cheaper than spot. Previous assumption reversed.]
-]
+= What Comes Next
 
-#v(4mm)
+Next month: the old Harbor goes dark. The HashiCorp Vault moves to Kubernetes production. MSK gets closer to its first real traffic. The developer portal gains its first Kubernetes integration.
 
-Persistent workloads moved back to on-demand. Only short-lived jobs — CI builds, data pipelines — remain on spot where interruption is acceptable. The platform reversed a previous decision based on new data. Cheaper *and* more stable.
-
-= Security Moved Fast
-
-Two urgent security responses in one month:
-
-*OpenBao HIGH vulnerability* — cross-namespace lease revocation could bypass access controls. Upgraded to 2.5.4 within days of disclosure. No exploitation detected.
-
-*DigitalOcean ingress replaced with Traefik* — the Nginx controller had an unpatched CVE and was no longer maintained upstream. Zero-downtime switchover to Traefik completed. No service interruption.
-
-Both responses followed the same pattern: detect, assess severity, patch or replace, verify, document. Days, not weeks.
-
-= Also Shipped
-
-Preview environments became extensible — any service can onboard via a script. The `@gitlab-runner` user was replaced with a scoped service account (saves EUR~400/year, tighter permissions). PACT contract testing infrastructure was removed after Tech Leads confirmed it is unused. Temporal's Helm chart moved to the official upstream under platform ownership. Bitnami chart proxy caches prevent Docker Hub rate limits from breaking builds. Monitoring label limits protect the metrics pipeline from cardinality explosions. Desktop build artifacts now publish to GitLab Release pages with SHA checksums for reproducible builds.
-
-= What June Means
-
-June had no single climax. It was the month where five migrations advanced simultaneously, security responded within days, and the platform got cheaper without getting less reliable.
-
-Every initiative advanced with measurable evidence of progress. The finish lines are in sight.
-
-#v(3mm)
-
-#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
-  #text(size: 6.5pt, fill: gray)[
-    *MSK*: tooling ready, dual-mode live #h(4mm)
-    *Harbor*: syncing, pipelines switched #h(4mm)
-    *Portal*: foundation live #h(4mm)
-    *CHG*: API deployed #h(4mm)
-    *Cost*: reversed and saved #h(4mm)
-    *Security*: patched in days
-  ]
-]
-
-#v(3mm)
-
-This is what a platform looks like when it stops reacting and starts building. Multiple fronts. Measurable progress. Nothing on fire.
+The finish lines are in sight. Every one of them.
