@@ -183,6 +183,22 @@ Same pattern as every migration this year: sync first, switch progressively, ver
 
 An internal developer portal is being built on Backstage. The goal: a single place where engineers see everything about their services — versions deployed across environments, pipeline status, sync state, alerts — without jumping between five different tools.
 
+#v(3mm)
+
+#block(
+  width: 100%,
+  stroke: 1pt + lightgray,
+  radius: 6pt,
+  inset: 4pt,
+  clip: true,
+)[
+  #image("images/eidp.png", width: 100%)
+]
+#v(1mm)
+#align(center)[#text(size: 6pt, style: "italic", fill: gray)[Early design of the Engineering Developer Internal Portal]]
+
+#v(3mm)
+
 What is getting shaped today aims for: autodiscovery of services from repositories, auto-generated overview pages, and live version tracking across environments. When it ships, onboarding will be as simple as dropping a file in your repo.
 
 Not there yet. Getting closer.
@@ -247,7 +263,7 @@ Both responses followed the same pattern: detect, assess, act, verify. Days, not
 
 = Also This Month
 
-Preview environments became self-service — any team onboards with a single script. The `@gitlab-runner` user was replaced with a scoped service account: EUR 400/year saved, permissions tightened. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
+Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
 
 = What Comes Next
 
