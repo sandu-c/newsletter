@@ -13,7 +13,7 @@
     (
       name: "June 2026",
       department: "Infrastructure and Reliability",
-      institution: "Fortris",
+      institution: "",
       city: "Remote",
       country: "Global",
       mail: "platform@fortris.com",
@@ -47,6 +47,46 @@
 )
 
 #set text(font: ("Manrope", "Arial", "Helvetica"), fill: gray)
+
+#v(2mm)
+
+#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
+  #text(size: 7pt, weight: "bold", fill: gray)[JUNE 2026 — INITIATIVE STATUS]
+  #v(4mm)
+  #grid(
+    columns: (1fr, auto, auto),
+    gutter: 3mm,
+    [#text(size: 7pt, weight: "bold", fill: gray)[Initiative]],
+    [#text(size: 7pt, weight: "bold", fill: gray)[State]],
+    [#text(size: 7pt, weight: "bold", fill: gray)[What Shipped]],
+
+    [#text(size: 7pt, fill: gray)[Kafka → MSK]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
+    [#text(size: 6.5pt, fill: gray)[Dual-mode tooling live]],
+
+    [#text(size: 7pt, fill: gray)[Harbor Registry]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
+    [#text(size: 6.5pt, fill: gray)[Syncing, pipelines switched]],
+
+    [#text(size: 7pt, fill: gray)[Developer Portal]],
+    [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
+    [#text(size: 6.5pt, fill: gray)[Autodiscovery, service pages]],
+
+    [#text(size: 7pt, fill: gray)[CHG Orchestrator]],
+    [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
+    [#text(size: 6.5pt, fill: gray)[API deployed, logic complete]],
+
+    [#text(size: 7pt, fill: gray)[Cost Optimization]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
+    [#text(size: 6.5pt, fill: gray)[Spot reversed, savings active]],
+
+    [#text(size: 7pt, fill: gray)[Security Response]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
+    [#text(size: 6.5pt, fill: gray)[2 CVEs patched in days]],
+  )
+]
+
+#v(6mm)
 
 = The Assumption That Cost Us Money
 
@@ -91,10 +131,24 @@ That required building a tooling layer that works identically across both cluste
 
 What shipped:
 
-- Strimzi Topic Operator manages topics as Kubernetes resources — deployed to LDT and PROD with proper sync ordering
-- AKHQ provides a single monitoring UI showing *both* Swarm and MSK clusters simultaneously
-- mTLS certificates delivered in JKS and PKCS12 formats — Java services can now authenticate to MSK without code changes
-- Topic definitions work across both clusters from the same Helm chart
+#v(3mm)
+
+#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
+  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
+  #v(3mm)
+  #text(size: 7pt, fill: gray)[
+    #grid(
+      columns: (1fr),
+      gutter: 2mm,
+      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to LDT and PROD],
+      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
+      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
+      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
+    )
+  ]
+]
+
+#v(4mm)
 
 The Kafka cluster itself moves when Infrastructure flips the switch. The tooling is already dual-mode. Services will not need to change.
 
@@ -107,33 +161,18 @@ The new instance is live at `registry.hub.codecraft.tools`. Replication runs con
 #v(3mm)
 
 #block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
-  #text(size: 7pt, weight: "bold", fill: gray)[HARBOR MIGRATION — WHERE IT STANDS]
-  #v(2mm)
-  #grid(
-    columns: (1fr, 1fr),
-    gutter: 4mm,
-    [
-      #text(size: 6.5pt, weight: "bold", fill: red)[Switched]
-      #v(1mm)
-      #text(size: 6.5pt, fill: gray)[
-        GitLab runners push here\
-        Helm chart dependencies\
-        ArgoCD credentials\
-        TestContainers\
-        Documentation updated
-      ]
-    ],
-    [
-      #text(size: 6.5pt, weight: "bold", fill: lightgray)[Remaining]
-      #v(1mm)
-      #text(size: 6.5pt, fill: gray)[
-        Robot accounts per cluster\
-        Full pipeline push cutover\
-        Old instance deprecation\
-        Zero-pull verification
-      ]
-    ],
-  )
+  #text(size: 7pt, weight: "bold", fill: gray)[HARBOR MIGRATION PROGRESS]
+  #v(3mm)
+  #text(size: 6.5pt, fill: gray)[
+    ● New instance live — HA, Keycloak SSO, RDS database, S3 storage\
+    ● Replication running — old instance pushes everything to new\
+    ● GitLab runners switched to new instance\
+    ● Helm charts and ArgoCD pointed to new registry\
+    ● TestContainers configured for new source\
+    #text(fill: lightgray)[○ Robot accounts — pending]\
+    #text(fill: lightgray)[○ Full pipeline cutover — pending]\
+    #text(fill: lightgray)[○ Zero-pull verification — pending]
+  ]
 ]
 
 #v(4mm)
