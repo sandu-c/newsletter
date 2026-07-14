@@ -5,6 +5,10 @@ stages:
 build-newsletter:
   stage: build
   image: ghcr.io/typst/typst:latest
+  variables:
+    GIT_LFS_SKIP_SMUDGE: "0"
+  before_script:
+    - apk add --no-cache git-lfs && git lfs install && git lfs pull
   script:
     - chmod +x build.sh
     - sh build.sh all
