@@ -36,15 +36,12 @@
   ),
   doi: "10.0000/fortris.platform.2026.06",
   abstract: [
-    Spot instances cost more than on-demand. That was the discovery that
-    rewrote a cost assumption held since 2025. Meanwhile, Kafka quietly
-    prepared to leave Docker Swarm, the container registry began its final
-    migration, and the internal developer portal started taking shape.
-    The platform also began onboarding the Clearing payments stack — a
-    regulated global payment infrastructure provider joining the Fortris
-    ecosystem through a merger. Two security vulnerabilities were patched
-    within days of disclosure. Every thread moved forward with measurable
-    progress.
+    Spot instances cost more than on-demand. That single discovery rewrote
+    a cost assumption held since 2025. But cost wasn't the only thing that
+    moved: Kafka prepared to leave Swarm, the container registry began its
+    migration, and Clearing — a regulated global payments provider — started
+    onboarding into the platform through a merger. Two security
+    vulnerabilities were patched within days. Six fronts. All advancing.
   ],
 )
 
