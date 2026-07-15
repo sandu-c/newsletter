@@ -233,6 +233,22 @@ cat > "$DIST/index.html" <<'HEADER'
       color: var(--white);
       min-height: 100vh;
       line-height: 1.5;
+      position: relative;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .site-header, .container, .site-footer {
+      position: relative;
+      z-index: 1;
     }
 
     .site-header {
@@ -473,6 +489,8 @@ cat > "$DIST/index.html" <<'HEADER'
 </head>
 <body>
 
+  <div id="particles-canvas"></div>
+
   <header class="site-header">
     <img src="images/logos/Fortris-white-logo---dark-background.png" alt="Fortris">
     <h1>Platform <strong>Engineering</strong></h1>
@@ -492,6 +510,33 @@ cat >> "$DIST/index.html" <<'FOOTER'
   <footer class="site-footer">
     Fortris · Infrastructure and Reliability · 2026
   </footer>
+
+  <script>
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+    script.onload = function() {
+      particlesJS('particles-canvas', {
+        "particles": {
+          "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": "#C9CED8" },
+          "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+          "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+          "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+          "line_linked": { "enable": true, "distance": 150, "color": "#C9CED8", "opacity": 0.4, "width": 1 },
+          "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+          "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.6 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 80 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+        },
+        "retina_detect": true
+      });
+    };
+    document.head.appendChild(script);
+  })();
+  </script>
 
 </body>
 </html>
