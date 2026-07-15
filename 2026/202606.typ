@@ -231,6 +231,6 @@ This is what a platform is for — making the next team as productive as the fir
 
 = Also This Month
 
-Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
+Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. Production Apple certificates were configured for macOS code signing — customers now receive properly signed binaries. Container image signing (cosign) was updated to fix the signing method. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums. A BTC block explorer was provisioned for the blockchain team's development environments.
 
 
