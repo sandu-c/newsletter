@@ -127,7 +127,7 @@ generate_cards() {
     <div class="article-card coming-next">
       <div class="card-date"><span class="coming-next-badge">Baking</span></div>
       <div class="card-title">${NEXT_MONTH} ${NEXT_YEAR}</div>
-      <div class="card-abstract"><span class="loading-dots">Preparing to serve</span></div>
+      <div class="card-abstract"><span class="loading-dots">🔥 Baking at 200°C. Still in the oven</span></div>
     </div>
 NEXTCARD
       fi
