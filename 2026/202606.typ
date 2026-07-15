@@ -265,8 +265,8 @@ Both responses followed the same pattern: detect, assess, act, verify. Days, not
 
 Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
 
-= What Comes Next
+= What June Means
 
-Next month: the old Harbor goes dark. The HashiCorp Vault moves to Kubernetes production. MSK gets closer to its first real traffic. The developer portal gains its first Kubernetes integration.
+June had no single climax. Five migrations advanced simultaneously. Security responded within days. The platform got cheaper without getting less reliable.
 
-The finish lines are in sight. Every one of them.
+Every initiative advanced with measurable evidence of progress. The finish lines are in sight.
