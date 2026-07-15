@@ -106,7 +106,9 @@ The C3/C3X Vault — the customer-facing secure custody infrastructure where cli
 
 This was not an internal platform concern. This is client infrastructure. The requirements were absolute: zero data loss, minimal downtime, and a positive customer experience throughout.
 
-The migration succeeded. The customer now operates on Kubernetes, self-managing their environment based on Fortris documentation. One of the oldest Docker Swarm dependencies — and the most sensitive — is gone.
+The platform team built the Helm chart that made this possible — giving clients the tooling to self-manage their Vault on Kubernetes based on Fortris documentation.
+
+The migration succeeded. The customer now operates on Kubernetes. One of the oldest Docker Swarm dependencies — and the most sensitive — is gone.
 
 = Kafka Topics Became Code
 
