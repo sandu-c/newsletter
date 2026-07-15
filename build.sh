@@ -521,9 +521,9 @@ cat >> "$DIST/index.html" <<'FOOTER'
           "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
           "color": { "value": "#C9CED8" },
           "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
-          "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
-          "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
-          "line_linked": { "enable": true, "distance": 150, "color": "#C9CED8", "opacity": 0.4, "width": 1 },
+          "opacity": { "value": 0.25, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+          "size": { "value": 2.5, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+          "line_linked": { "enable": true, "distance": 150, "color": "#C9CED8", "opacity": 0.18, "width": 0.7 },
           "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
         },
         "interactivity": {
