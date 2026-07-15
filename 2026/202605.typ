@@ -143,7 +143,9 @@ Now, managing Kafka topics works like any other infrastructure change:
 
 A Kafka UI was also deployed in the development environment — giving developers visual access to topic state, consumer groups, and cluster health without CLI tools.
 
-This approach is forward-compatible: it works with the current Swarm-hosted Kafka cluster and will work identically when the future move to managed Kafka (MSK) happens.
+This approach is forward-compatible: it works with the current Swarm-hosted Kafka cluster and will work identically when the future move to managed Kafka (MSK) happens. Topics are already propagated across all environments — DEV, LDT, and PROD. Strimzi CRDs are managed as a separate ArgoCD application with proper sync ordering. And mTLS certificates have been delivered in JKS and PKCS12 formats so Java services can authenticate to MSK when the cutover happens.
+
+The tooling is ready for both clusters. Services will not need to change.
 
 = The Pipeline Forgot How to Deploy to Swarm
 
