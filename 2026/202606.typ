@@ -41,9 +41,10 @@
     prepared to leave Docker Swarm, the container registry began its final
     migration, and the internal developer portal started taking shape.
     The platform also began onboarding the Clearing payments stack — a
-    banking and settlement system joining the Fortris ecosystem through
-    a merger. Two security vulnerabilities were patched within days of
-    disclosure. Every thread moved forward with measurable progress.
+    regulated global payment infrastructure provider joining the Fortris
+    ecosystem through a merger. Two security vulnerabilities were patched
+    within days of disclosure. Every thread moved forward with measurable
+    progress.
   ],
 )
 
@@ -264,9 +265,9 @@ Both responses followed the same pattern: detect, assess, act, verify. Days, not
 
 = A New Product Stack Arrived
 
-Clearing — a banking and payments settlement platform — is merging into the Fortris ecosystem. Their engineering stack needed a home: source control, CI/CD pipelines, cloud accounts, runners, and deployment infrastructure.
+Clearing — a regulated global payment infrastructure provider — is merging into the Fortris ecosystem. Their engineering stack needs a home: source control, CI/CD pipelines, cloud accounts, runners, and deployment infrastructure.
 
-The platform began onboarding their services into the same tooling and standards used by the rest of engineering. GitLab groups created. AWS accounts bootstrapped. Pipelines configured. The goal: Clearing's team ships with the same velocity and safety as everyone else, from day one.
+The platform started the onboarding work this month. Early steps: GitLab groups, AWS account bootstrapping, initial pipeline configuration. Most of the work is still ahead — but the process is underway and the path is defined.
 
 This is what a platform is for — making the next team as productive as the first, without reinventing infrastructure.
 
