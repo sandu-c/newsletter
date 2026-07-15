@@ -8,7 +8,7 @@
 #let lightgray = rgb("#C9CED8")
 
 #show: graceful-genetics.template.with(
-  title: [Swarm Is Dead],
+  title: [Swarm Lost Its Last Excuse],
   authors: (
     (
       name: "May 2026",
@@ -192,7 +192,7 @@ Another tool previously living on corporate IT infrastructure, now owned and ope
 
 = Cleaning Up the Remains
 
-With Swarm dead as a deployment target, the cleanup began:
+With Swarm no longer receiving deployments, the cleanup began:
 
 - Legacy Swarm management tools removed from infrastructure (Portainer, DeployD API, apps-config-crypt)
 - Swarm-related platform operator repositories archived
@@ -207,7 +207,7 @@ May is the month the legacy retirement plan stopped being a plan.
 
 Docker Swarm no longer hosts databases. It no longer runs customer infrastructure. It no longer receives deployments. The CI/CD system has forgotten it exists.
 
-What remains is decommissioning — turning off machines that are already empty. That is an infrastructure task, not a platform one.
+What remains on Swarm is Kafka (migrating to MSK) and HashiCorp Vault (migrating to Kubernetes). Both have plans. Neither is blocked. The platform stopped deploying applications to Swarm — what is left is infrastructure being retired on its own timeline.
 
 The platform team delivered what it promised in January: Kubernetes as the only runtime that matters. It took five months of disciplined, staged execution. No shortcuts. No incidents during migration. No data lost.
 
