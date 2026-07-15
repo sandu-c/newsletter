@@ -8,7 +8,7 @@
 #let lightgray = rgb("#C9CED8")
 
 #show: graceful-genetics.template.with(
-  title: [Cheaper Than Spot],
+  title: [Five Fronts, All Advancing],
   authors: (
     (
       name: "June 2026",
@@ -36,12 +36,12 @@
   ),
   doi: "10.0000/fortris.platform.2026.06",
   abstract: [
-    Spot instances cost more than on-demand. That single discovery rewrote
-    a cost assumption held since 2025. But cost wasn't the only thing that
-    moved: Kafka prepared to leave Swarm, the container registry began its
-    migration, and Clearing — a regulated global payments provider — started
-    onboarding into the platform through a merger. Two security
-    vulnerabilities were patched within days. Six fronts. All advancing.
+    Five major initiatives advanced in parallel. Kafka prepared to leave
+    Swarm with dual-mode tooling now live. The container registry began
+    its migration to platform-owned infrastructure. Clearing — a regulated
+    global payments provider — started onboarding through a merger. The
+    developer portal took shape. Two security vulnerabilities were patched
+    within days. Five fronts. All advancing.
   ],
 )
 
@@ -75,10 +75,6 @@
     [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
     [#text(size: 6.5pt, fill: gray)[API deployed, logic complete]],
 
-    [#text(size: 7pt, fill: gray)[Cost Optimization]],
-    [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
-    [#text(size: 6.5pt, fill: gray)[Spot reversed, savings active]],
-
     [#text(size: 7pt, fill: gray)[Security Response]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
     [#text(size: 6.5pt, fill: gray)[2 CVEs patched in days]],
@@ -86,41 +82,6 @@
 ]
 
 #v(6mm)
-
-= The Assumption That Cost Us Money
-
-Spot instances were supposed to be cheaper. They were not.
-
-With AWS Savings Plans active, on-demand pricing dropped to \$0.095/hr — while spot remained at \$0.115/hr for the same instance type. The platform had been paying a 17% premium for *less* stability.
-
-#v(3mm)
-
-#cetz.canvas(length: 1mm, {
-  import cetz.draw: *
-
-  let bar-h = 7
-  let max-w = 45
-
-  // Spot bar (full width = more expensive)
-  rect((0, bar-h + 3), (max-w, 2 * bar-h + 3), fill: lightgray, stroke: none, radius: 2pt)
-  content((max-w + 2, bar-h + 3 + bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: gray)[Spot · \$0.115/hr]])
-
-  // On-demand bar (shorter = cheaper)
-  let od-w = max-w * 0.095 / 0.115
-  rect((0, 0), (od-w, bar-h), fill: red, stroke: none, radius: 2pt)
-  content((od-w + 2, bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: red)[On-Demand · \$0.095/hr]])
-})
-
-#v(2mm)
-#align(center)[
-  #text(size: 6pt, style: "italic", fill: gray)[17% cheaper. More stable. Previous assumption reversed.]
-]
-
-#v(4mm)
-
-Persistent workloads moved back to on-demand the same week. Only short-lived jobs — CI builds, data pipelines — remain on spot where interruption is acceptable.
-
-The platform reversed its own decision based on data. That takes more discipline than making the decision in the first place.
 
 = Kafka Started Packing
 
