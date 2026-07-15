@@ -550,6 +550,11 @@ echo "  ✓ index.html generated"
 # Copy viewer (static template)
 cp viewer.html "$DIST/viewer.html" 2>/dev/null || echo "  ⚠ viewer.html missing"
 
+# Generate SHA256 checksums for all PDFs
+echo "  → generating checksums"
+(cd "$DIST/pdfs" && sha256sum *.pdf > ../checksums.sha256 2>/dev/null || shasum -a 256 *.pdf > ../checksums.sha256)
+echo "  ✓ checksums.sha256 generated"
+
 echo ""
 echo "═══ Done ═══"
 echo "Open: open $DIST/index.html"
