@@ -39,10 +39,11 @@
     Spot instances cost more than on-demand. That was the discovery that
     rewrote a cost assumption held since 2025. Meanwhile, Kafka quietly
     prepared to leave Docker Swarm, the container registry began its final
-    migration, and the internal developer portal started taking shape in
-    staging. Two security vulnerabilities were patched within days
-    of disclosure. Five initiatives advanced. None stalled. Every finish
-    line moved closer.
+    migration, and the internal developer portal started taking shape.
+    The platform also began onboarding the Clearing payments stack — a
+    banking and settlement system joining the Fortris ecosystem through
+    a merger. Two security vulnerabilities were patched within days of
+    disclosure. Every thread moved forward with measurable progress.
   ],
 )
 
@@ -260,6 +261,14 @@ Patched and deployed within days.
 Separately, the DigitalOcean Harbor cluster's Nginx ingress controller had an unpatched CVE and was no longer maintained upstream. Replaced with Traefik — zero downtime, DNS repointed, old controller removed.
 
 Both responses followed the same pattern: detect, assess, act, verify. Days, not weeks.
+
+= A New Product Stack Arrived
+
+Clearing — a banking and payments settlement platform — is merging into the Fortris ecosystem. Their engineering stack needed a home: source control, CI/CD pipelines, cloud accounts, runners, and deployment infrastructure.
+
+The platform began onboarding their services into the same tooling and standards used by the rest of engineering. GitLab groups created. AWS accounts bootstrapped. Pipelines configured. The goal: Clearing's team ships with the same velocity and safety as everyone else, from day one.
+
+This is what a platform is for — making the next team as productive as the first, without reinventing infrastructure.
 
 = Also This Month
 
