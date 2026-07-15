@@ -58,6 +58,10 @@
     [#text(size: 7pt, weight: "bold", fill: gray)[State]],
     [#text(size: 7pt, weight: "bold", fill: gray)[What Shipped]],
 
+    [#text(size: 7pt, fill: gray)[HS Vault → K8s]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
+    [#text(size: 6.5pt, fill: gray)[LDT migrated, PROD pending]],
+
     [#text(size: 7pt, fill: gray)[Harbor Registry]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
     [#text(size: 6.5pt, fill: gray)[Syncing, pipelines switched]],
@@ -73,10 +77,6 @@
     [#text(size: 7pt, fill: gray)[Clearing Onboarding]],
     [#text(size: 6.5pt, weight: "bold", fill: gray)[STARTING]],
     [#text(size: 6.5pt, fill: gray)[GitLab, AWS bootstrap begun]],
-
-    [#text(size: 7pt, fill: gray)[HS Vault → K8s]],
-    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
-    [#text(size: 6.5pt, fill: gray)[LDT migrated, PROD pending]],
 
     [#text(size: 7pt, fill: gray)[Security Response]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
