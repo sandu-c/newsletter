@@ -265,8 +265,4 @@ Both responses followed the same pattern: detect, assess, act, verify. Days, not
 
 Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
 
-= What June Means
 
-June had no single climax. Five migrations advanced simultaneously. Security responded within days. The platform got cheaper without getting less reliable.
-
-Every initiative advanced with measurable evidence of progress. The finish lines are in sight.
