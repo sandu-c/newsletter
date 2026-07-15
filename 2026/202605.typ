@@ -143,7 +143,26 @@ Now, managing Kafka topics works like any other infrastructure change:
 
 A Kafka UI was also deployed in the development environment — giving developers visual access to topic state, consumer groups, and cluster health without CLI tools.
 
-This approach is forward-compatible: it works with the current Swarm-hosted Kafka cluster and will work identically when the future move to managed Kafka (MSK) happens. Topics are already propagated across all environments — DEV, LDT, and PROD. Strimzi CRDs are managed as a separate ArgoCD application with proper sync ordering. And mTLS certificates have been delivered in JKS and PKCS12 formats so Java services can authenticate to MSK when the cutover happens.
+This approach is forward-compatible: it works with the current Swarm-hosted Kafka cluster and will work identically when the future move to managed Kafka (MSK) happens.
+
+#v(3mm)
+
+#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
+  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
+  #v(3mm)
+  #text(size: 7pt, fill: gray)[
+    #grid(
+      columns: (1fr),
+      gutter: 2mm,
+      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to DEV, LDT, and PROD],
+      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
+      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
+      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
+    )
+  ]
+]
+
+#v(4mm)
 
 The tooling is ready for both clusters. Services will not need to change.
 
