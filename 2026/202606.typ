@@ -59,10 +59,6 @@
     [#text(size: 7pt, weight: "bold", fill: gray)[State]],
     [#text(size: 7pt, weight: "bold", fill: gray)[What Shipped]],
 
-    [#text(size: 7pt, fill: gray)[Kafka → MSK]],
-    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
-    [#text(size: 6.5pt, fill: gray)[Tooling ready for both clusters]],
-
     [#text(size: 7pt, fill: gray)[Harbor Registry]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
     [#text(size: 6.5pt, fill: gray)[Syncing, pipelines switched]],
@@ -82,6 +78,10 @@
     [#text(size: 7pt, fill: gray)[Security Response]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
     [#text(size: 6.5pt, fill: gray)[2 CVEs patched in days]],
+
+    [#text(size: 7pt, fill: gray)[Kafka → MSK]],
+    [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
+    [#text(size: 6.5pt, fill: gray)[Tooling ready for both clusters]],
   )
 ]
 
@@ -200,7 +200,7 @@ Both responses followed the same pattern: detect, assess, act, verify. Days, not
 
 Clearing — a regulated global payment infrastructure provider — is merging into the Fortris ecosystem. Their engineering stack needs a home: source control, CI/CD pipelines, cloud accounts, runners, and deployment infrastructure.
 
-The platform started the onboarding work this month. Early steps: GitLab groups, AWS account bootstrapping, initial pipeline configuration. Most of the work is still ahead — but the process is underway and the path is defined.
+The platform started the onboarding work this month. Early steps: source repositories mirrored into GitLab, AWS account bootstrapping, initial pipeline configuration. Most of the work is still ahead — but the process is underway and the path is defined.
 
 This is what a platform is for — making the next team as productive as the first, without reinventing infrastructure.
 
