@@ -61,7 +61,7 @@
 
     [#text(size: 7pt, fill: gray)[Kafka → MSK]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
-    [#text(size: 6.5pt, fill: gray)[Dual-mode tooling live]],
+    [#text(size: 6.5pt, fill: gray)[Tooling ready for both clusters]],
 
     [#text(size: 7pt, fill: gray)[Harbor Registry]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
@@ -75,6 +75,10 @@
     [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
     [#text(size: 6.5pt, fill: gray)[API deployed, logic complete]],
 
+    [#text(size: 7pt, fill: gray)[Clearing Onboarding]],
+    [#text(size: 6.5pt, weight: "bold", fill: gray)[STARTING]],
+    [#text(size: 6.5pt, fill: gray)[GitLab, AWS bootstrap begun]],
+
     [#text(size: 7pt, fill: gray)[Security Response]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
     [#text(size: 6.5pt, fill: gray)[2 CVEs patched in days]],
@@ -82,35 +86,6 @@
 ]
 
 #v(6mm)
-
-= Kafka Started Packing
-
-Self-hosted Kafka on Docker Swarm is being replaced by AWS Managed Streaming for Kafka. The platform's job: make sure developers don't notice when it happens.
-
-That required building a tooling layer that works identically across both clusters — so the actual cutover becomes a configuration change, not a migration project for every team.
-
-What shipped:
-
-#v(3mm)
-
-#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
-  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
-  #v(3mm)
-  #text(size: 7pt, fill: gray)[
-    #grid(
-      columns: (1fr),
-      gutter: 2mm,
-      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to LDT and PROD],
-      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
-      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
-      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
-    )
-  ]
-]
-
-#v(4mm)
-
-The Kafka cluster itself moves when Infrastructure flips the switch. The tooling is already dual-mode. Services will not need to change.
 
 = Every Container Image Is Moving
 
@@ -228,6 +203,35 @@ Clearing — a regulated global payment infrastructure provider — is merging i
 The platform started the onboarding work this month. Early steps: GitLab groups, AWS account bootstrapping, initial pipeline configuration. Most of the work is still ahead — but the process is underway and the path is defined.
 
 This is what a platform is for — making the next team as productive as the first, without reinventing infrastructure.
+
+= Kafka Started Packing
+
+Self-hosted Kafka on Docker Swarm is being replaced by AWS Managed Streaming for Kafka. The platform's job: make sure developers don't notice when it happens.
+
+That required building a tooling layer that works identically across both clusters — so the actual cutover becomes a configuration change, not a migration project for every team.
+
+What shipped:
+
+#v(3mm)
+
+#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
+  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
+  #v(3mm)
+  #text(size: 7pt, fill: gray)[
+    #grid(
+      columns: (1fr),
+      gutter: 2mm,
+      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to LDT and PROD],
+      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
+      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
+      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
+    )
+  ]
+]
+
+#v(4mm)
+
+The Kafka cluster itself moves when Infrastructure flips the switch. The tooling is already dual-mode. Services will not need to change.
 
 = Also This Month
 
