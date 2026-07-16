@@ -407,8 +407,12 @@ cat > "$DIST/index.html" <<'HEADER'
 
     .article-card .card-cta {
       display: inline-block; margin-top: 1rem;
-      font-size: 0.75rem; font-weight: 700; color: var(--red);
+      font-size: 0.7rem; font-weight: 700; color: var(--red);
       letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1.5px solid rgba(240, 124, 112, 0.3);
+      border-radius: 20px;
+      transition: all 0.2s ease;
     }
 
     .article-card .card-cta-article {
@@ -417,7 +421,12 @@ cat > "$DIST/index.html" <<'HEADER'
     }
 
     .article-card .card-cta-article:hover {
-      text-decoration: underline;
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(240, 124, 112, 0.25);
+      text-decoration: none;
     }
 
     /* Sidebar panel */
@@ -721,7 +730,7 @@ cat >> "$DIST/index.html" <<'FOOTER'
   </main>
 
   <footer class="site-footer">
-    Fortris · Infrastructure and Reliability · 2026
+    Fortris · Platform Engineering · 2026
   </footer>
 
   <script>

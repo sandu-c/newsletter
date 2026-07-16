@@ -12,7 +12,7 @@
   authors: (
     (
       name: "June 2026",
-      department: "Infrastructure and Reliability",
+      department: "Platform Engineering",
       institution: "Fortris",
       city: "Remote",
       country: "Global",
