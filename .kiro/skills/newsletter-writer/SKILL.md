@@ -132,3 +132,45 @@ The goal is to understand:
 open dist/index.html   # Preview newsletter
 ```
 
+
+---
+
+## Complete Article Workflow
+
+The workflow for producing a monthly newsletter edition:
+
+### Step 1: Write English article (.typ)
+1. Research: Follow Jira epics, subtasks, comments, GitLab MRs
+2. Write the `.typ` file following `prompt.md` rules
+3. Compile with `./build.sh <YYYYMM>` and review PDF
+4. Iterate until content is accurate and engaging
+
+### Step 2: Spanish translation (_es.typ)
+1. Once English is confirmed, create `YYYYMM_es.typ`
+2. Same tone, same structure, same visuals — castellano de España
+3. Keep technical terms in English (Kubernetes, ArgoCD, Helm, etc.)
+4. Compile and verify
+
+### Step 3: TLDR summary (_tldr.md)
+1. Create `YYYYMM_tldr.md` with key highlights
+2. Format: title, icon (Lucide name), status, display type, description
+3. Display types: `number` (hero stat), `progress` (bar), `dots` (semaphore), `bullets` (text)
+4. Status options: `done`, `advancing`, `foundation`, `starting`
+5. Run `./generate_tldr.sh 2026/YYYYMM_tldr.md` to preview
+6. Build script generates HTML automatically
+
+### File naming convention
+```
+2026/
+├── 202607.typ          ← English article (required)
+├── 202607_es.typ       ← Spanish translation (optional)
+├── 202607_tldr.md      ← Quick-look summary (optional)
+└── images/             ← Article images
+```
+
+### Build commands
+```bash
+./build.sh all          # Build everything
+./build.sh 202607       # Build single article
+./generate_tldr.sh 2026/202607_tldr.md  # Preview TLDR standalone
+```
