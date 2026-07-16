@@ -216,6 +216,13 @@ emit_card() {
     LATEST_CLASS=" latest"
   fi
 
+  # Check for translations
+  LANG_PILLS="<span class=\"lang-pill\">EN</span>"
+  ES_FILE=$(echo "$f" | sed 's/\.typ$/_es.typ/')
+  if [ -f "$ES_FILE" ]; then
+    LANG_PILLS="<span class=\"lang-pill\">EN</span><span class=\"lang-pill available\">ES</span>"
+  fi
+
   cat <<CARD
 
     <a href="viewer.html?pdf=pdfs/${BASENAME}.pdf" class="article-card ${FEATURED}${LATEST_CLASS}">
@@ -223,6 +230,7 @@ emit_card() {
       <div class="card-title">${TITLE}</div>
       <div class="card-abstract">${ABSTRACT}</div>
       <span class="card-cta">Read article →</span>
+      <div class="card-langs">${LANG_PILLS}</div>
     </a>
 CARD
 }
@@ -394,6 +402,29 @@ cat > "$DIST/index.html" <<'HEADER'
       display: inline-block; margin-top: 1rem;
       font-size: 0.75rem; font-weight: 700; color: var(--red);
       letter-spacing: 0.5px; text-transform: uppercase;
+    }
+
+    .article-card .card-langs {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .article-card .card-langs .lang-pill {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(201, 206, 216, 0.15);
+      color: var(--lightgray);
+    }
+
+    .article-card .card-langs .lang-pill.available {
+      background: rgba(240, 124, 112, 0.1);
+      color: var(--red);
     }
 
     .article-card:hover .card-cta { text-decoration: underline; }
