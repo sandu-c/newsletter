@@ -19,7 +19,9 @@ build-newsletter:
   rules:
     - changes:
         - "20*/*.typ"
+        - "20*/*_tldr.md"
         - "build.sh"
+        - "generate_tldr.sh"
         - "viewer.html"
       when: always
 
@@ -36,6 +38,8 @@ pages:
   rules:
     - changes:
         - "20*/*.typ"
+        - "20*/*_tldr.md"
         - "build.sh"
+        - "generate_tldr.sh"
         - "viewer.html"
       when: always
