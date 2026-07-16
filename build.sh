@@ -90,6 +90,35 @@ done
 echo ""
 
 # ============================================================================
+# Generate languages.json manifest
+# ============================================================================
+echo "  → generating languages.json"
+echo "{" > "$DIST/languages.json"
+FIRST_LANG="true"
+for pdf in $PDF_DIR/*.pdf; do
+  BASENAME=$(basename "$pdf" .pdf)
+  # Skip _es variants themselves
+  case "$BASENAME" in *_es) continue ;; esac
+  # Check if _es version exists
+  if [ -f "$PDF_DIR/${BASENAME}_es.pdf" ]; then
+    LANGS="[\"en\",\"es\"]"
+  else
+    LANGS="[\"en\"]"
+  fi
+  if [ "$FIRST_LANG" = "true" ]; then
+    FIRST_LANG="false"
+  else
+    echo "," >> "$DIST/languages.json"
+  fi
+  printf "  \"%s\": %s" "$BASENAME" "$LANGS" >> "$DIST/languages.json"
+done
+echo "" >> "$DIST/languages.json"
+echo "}" >> "$DIST/languages.json"
+echo "  ✓ languages.json generated"
+
+echo ""
+
+# ============================================================================
 # Generate index.html from all .typ files
 # ============================================================================
 echo "═══ Generating index ═══"
