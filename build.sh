@@ -839,3 +839,4 @@ echo "  ✓ checksums.sha256 generated"
 echo ""
 echo "═══ Done ═══"
 echo "Open: open $DIST/index.html"
+
