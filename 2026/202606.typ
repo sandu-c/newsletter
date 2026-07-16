@@ -103,9 +103,9 @@ The new instance is live at `registry.hub.codecraft.tools`. Replication runs con
     ● GitLab runners switched to new instance\
     ● Helm charts and ArgoCD pointed to new registry\
     ● TestContainers configured for new source\
-    #text(fill: lightgray)[○ Robot accounts — pending]\
-    #text(fill: lightgray)[○ Full pipeline cutover — pending]\
-    #text(fill: lightgray)[○ Zero-pull verification — pending]
+    #text(fill: rgb("#8a919c"))[○ Robot accounts — pending]\
+    #text(fill: rgb("#8a919c"))[○ Full pipeline cutover — pending]\
+    #text(fill: rgb("#8a919c"))[○ Zero-pull verification — pending]
   ]
 ]
 

@@ -104,9 +104,9 @@ La nueva instancia está activa en `registry.hub.codecraft.tools`. La replicaci�
     ● Runners de GitLab migrados a la nueva instancia\
     ● Helm charts y ArgoCD apuntando al nuevo registro\
     ● TestContainers configurados para la nueva fuente\
-    #text(fill: lightgray)[○ Cuentas robot — pendiente]\
-    #text(fill: lightgray)[○ Cutover completo de pipelines — pendiente]\
-    #text(fill: lightgray)[○ Verificación de zero-pull — pendiente]
+    #text(fill: rgb("#8a919c"))[○ Cuentas robot — pendiente]\
+    #text(fill: rgb("#8a919c"))[○ Cutover completo de pipelines — pendiente]\
+    #text(fill: rgb("#8a919c"))[○ Verificación de zero-pull — pendiente]
   ]
 ]
 

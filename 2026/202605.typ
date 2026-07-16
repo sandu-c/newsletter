@@ -181,7 +181,7 @@ Combined with the MongoDB migration completing and the Vault moving to Kubernete
     columns: (1fr, 1fr),
     gutter: 6mm,
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[SWARM HOSTED (Jan 2026)]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[SWARM HOSTED (Jan 2026)]
       #v(2mm)
       #text(size: 7pt, fill: gray)[
         24 MongoDB databases\

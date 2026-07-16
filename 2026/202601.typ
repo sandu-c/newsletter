@@ -161,7 +161,7 @@ RDS databases were provisioned in the new production AWS account, managed throug
     columns: (1fr, 1fr),
     gutter: 6mm,
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[BEFORE]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[BEFORE]
       #v(2mm)
       #text(size: 7pt, fill: gray)[
         Engineering tools mixed with IT tools\
