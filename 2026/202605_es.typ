@@ -181,7 +181,7 @@ Combinado con la migración completa de MongoDB y el Vault trasladado a Kubernet
     columns: (1fr, 1fr),
     gutter: 6mm,
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[SWARM ALOJABA (Ene 2026)]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[SWARM ALOJABA (Ene 2026)]
       #v(2mm)
       #text(size: 7pt, fill: gray)[
         24 bases de datos MongoDB\

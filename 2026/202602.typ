@@ -134,7 +134,7 @@ Every stage went through formal change management, with security approval from t
       ]
     ],
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[Swarm (7 remaining)]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[Swarm (7 remaining)]
       #text(size: 6.5pt, fill: gray)[
         blockchain\_transaction\
         bows\
@@ -219,7 +219,7 @@ The production changes went through formal change management for Data and RDS se
     columns: (1fr, 1fr),
     gutter: 6mm,
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[INFISICAL (before)]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[INFISICAL (before)]
       #v(2mm)
       #text(size: 7pt, fill: gray)[
         Paid SaaS license\

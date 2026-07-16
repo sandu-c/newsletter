@@ -83,7 +83,7 @@ What also shipped: ExternalSecrets now works from local minikube environments. D
       ]
     ],
     [
-      #text(size: 7pt, weight: "bold", fill: lightgray)[Infisical status]
+      #text(size: 7pt, weight: "bold", fill: rgb("#8a919c"))[Infisical status]
       #text(size: 6.5pt, fill: gray)[
         ✓ All environments disabled\
         ✓ Progressive disconnection in progress\
