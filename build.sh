@@ -156,7 +156,7 @@ generate_cards() {
     <div class="article-card coming-next">
       <div class="card-date"><span class="coming-next-badge">Baking</span></div>
       <div class="card-title">${NEXT_MONTH} ${NEXT_YEAR}</div>
-      <div class="card-abstract"><span class="loading-dots">🔥 Baking at 200°C. Still in the oven</span></div>
+      <div class="card-abstract"><span class="loading-dots"><i data-lucide="flame" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-right:4px;stroke:var(--red)"></i>Baking at 200°C — still in the oven</span></div>
     </div>
 NEXTCARD
       fi
@@ -698,6 +698,7 @@ cat > "$DIST/index.html" <<'HEADER'
       .article-card.featured .card-title { font-size: 1.2rem; }
     }
   </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -724,6 +725,7 @@ cat >> "$DIST/index.html" <<'FOOTER'
   </footer>
 
   <script>
+  lucide.createIcons();
   (function() {
     var script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
