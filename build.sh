@@ -512,7 +512,7 @@ cat > "$DIST/index.html" <<'HEADER'
 
     .tldr-panel-content iframe {
       width: 100%;
-      height: calc(100% - 52px);
+      height: 100%;
       border: none;
     }
 
@@ -771,8 +771,7 @@ cat >> "$DIST/index.html" <<'FOOTER'
     // Reset header
     header.innerHTML = '<span>Quick Look</span>' +
       '<button class="close-btn" onclick="closeTldr()">✕</button>';
-    content.innerHTML = '<iframe src="tldr/' + basename + '_tldr.html"></iframe>' +
-      '<a href="viewer.html?pdf=pdfs/' + basename + '.pdf" class="tldr-bottom-bar"><span>Want the full story? →</span></a>';
+    content.innerHTML = '<iframe src="tldr/' + basename + '_tldr.html"></iframe>';
     setTimeout(function() {
       overlay.classList.add('active');
       panel.classList.add('active');

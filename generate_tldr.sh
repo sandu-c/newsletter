@@ -137,6 +137,43 @@ cat > "$OUTPUT" << 'HEADER'
       text-align: center; margin-top: 2rem; padding-top: 1rem;
       border-top: 1px solid rgba(255,255,255,0.06);
       font-size: 0.65rem; color: #555;
+      margin-bottom: 4rem;
+    }
+
+    .cta-bottom {
+      position: sticky;
+      bottom: 1rem;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 1rem;
+      padding: 0 1rem;
+    }
+
+    .cta-bottom span {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red);
+      border: 1.5px solid var(--red);
+      border-radius: 24px;
+      background: var(--dark);
+      transition: all 0.3s ease;
+      animation: heartbeat 3s ease-in-out infinite;
+    }
+
+    .cta-bottom:hover span {
+      background: var(--red);
+      color: #fff;
+      animation: none;
+    }
+
+    @keyframes heartbeat {
+      0%, 80%, 100% { transform: scale(1); opacity: 0.85; }
+      85% { transform: scale(1.08); opacity: 1; }
+      90% { transform: scale(1); opacity: 0.85; }
+      95% { transform: scale(1.05); opacity: 1; }
     }
   </style>
 </head>
@@ -300,8 +337,44 @@ cat >> "$OUTPUT" << 'FOOTER'
     Platform Engineering · Fortris<br>
     Full article available at newsletter portal
   </div>
+
+  <a href="#" id="cta-full-article" class="cta-bottom" onclick="if(window.parent!==window){window.parent.location.href=this.dataset.href}else{window.location.href=this.dataset.href}">
+    <span>Want the full story? →</span>
+  </a>
 </div>
-<script>lucide.createIcons();</script>
+<script>
+lucide.createIcons();
+
+// Scroll-reactive CTA growth
+(function() {
+  var cta = document.getElementById('cta-full-article');
+  var baseFontSize = 0.8;
+  var maxFontSize = 1.1;
+  var basePadV = 0.7;
+  var maxPadV = 1.1;
+
+  // Set the article href from parent URL params
+  var params = new URLSearchParams(window.location.search);
+  var basename = window.location.pathname.split('/').pop().replace('_tldr.html', '');
+  cta.dataset.href = '../viewer.html?pdf=pdfs/' + basename + '.pdf';
+  cta.href = cta.dataset.href;
+
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    var progress = Math.min(scrollTop / docHeight, 1);
+
+    // Only grow in the last 40% of scroll
+    var growFactor = Math.max(0, (progress - 0.6) / 0.4);
+    var fontSize = baseFontSize + (maxFontSize - baseFontSize) * growFactor;
+    var padV = basePadV + (maxPadV - basePadV) * growFactor;
+
+    cta.querySelector('span').style.fontSize = fontSize + 'rem';
+    cta.querySelector('span').style.padding = padV + 'rem ' + (1.2 + growFactor * 0.5) + 'rem';
+  });
+})();
+</script>
 </body>
 </html>
 FOOTER
