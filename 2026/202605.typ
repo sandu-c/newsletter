@@ -8,7 +8,7 @@
 #let lightgray = rgb("#C9CED8")
 
 #show: graceful-genetics.template.with(
-  title: [Swarm Is Dead],
+  title: [Swarm Lost Its Last Excuse],
   authors: (
     (
       name: "May 2026",
@@ -106,7 +106,9 @@ The C3/C3X Vault — the customer-facing secure custody infrastructure where cli
 
 This was not an internal platform concern. This is client infrastructure. The requirements were absolute: zero data loss, minimal downtime, and a positive customer experience throughout.
 
-The migration succeeded. The customer now operates on Kubernetes, self-managing their environment based on Fortris documentation. One of the oldest Docker Swarm dependencies — and the most sensitive — is gone.
+The platform team built the Helm chart that made this possible — giving clients the tooling to self-manage their Vault on Kubernetes based on Fortris documentation.
+
+The migration succeeded. The customer now operates on Kubernetes. One of the oldest Docker Swarm dependencies — and the most sensitive — is gone.
 
 = Kafka Topics Became Code
 
@@ -142,6 +144,27 @@ Now, managing Kafka topics works like any other infrastructure change:
 A Kafka UI was also deployed in the development environment — giving developers visual access to topic state, consumer groups, and cluster health without CLI tools.
 
 This approach is forward-compatible: it works with the current Swarm-hosted Kafka cluster and will work identically when the future move to managed Kafka (MSK) happens.
+
+#v(3mm)
+
+#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
+  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
+  #v(3mm)
+  #text(size: 7pt, fill: gray)[
+    #grid(
+      columns: (1fr),
+      gutter: 2mm,
+      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to DEV, LDT, and PROD],
+      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
+      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
+      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
+    )
+  ]
+]
+
+#v(4mm)
+
+The tooling is ready for both clusters. Services will not need to change.
 
 = The Pipeline Forgot How to Deploy to Swarm
 
@@ -192,7 +215,7 @@ Another tool previously living on corporate IT infrastructure, now owned and ope
 
 = Cleaning Up the Remains
 
-With Swarm dead as a deployment target, the cleanup began:
+With Swarm no longer receiving deployments, the cleanup began:
 
 - Legacy Swarm management tools removed from infrastructure (Portainer, DeployD API, apps-config-crypt)
 - Swarm-related platform operator repositories archived
@@ -207,7 +230,7 @@ May is the month the legacy retirement plan stopped being a plan.
 
 Docker Swarm no longer hosts databases. It no longer runs customer infrastructure. It no longer receives deployments. The CI/CD system has forgotten it exists.
 
-What remains is decommissioning — turning off machines that are already empty. That is an infrastructure task, not a platform one.
+What remains on Swarm is Kafka (migrating to MSK) and HashiCorp Vault (migrating to Kubernetes). Both have plans. Neither is blocked. The platform stopped deploying applications to Swarm — what is left is infrastructure being retired on its own timeline.
 
 The platform team delivered what it promised in January: Kubernetes as the only runtime that matters. It took five months of disciplined, staged execution. No shortcuts. No incidents during migration. No data lost.
 

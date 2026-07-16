@@ -8,7 +8,7 @@
 #let lightgray = rgb("#C9CED8")
 
 #show: graceful-genetics.template.with(
-  title: [Cheaper Than Spot],
+  title: [Every Front Advancing],
   authors: (
     (
       name: "June 2026",
@@ -36,13 +36,11 @@
   ),
   doi: "10.0000/fortris.platform.2026.06",
   abstract: [
-    Spot instances cost more than on-demand. That was the discovery that
-    rewrote a cost assumption held since 2025. Meanwhile, Kafka quietly
-    prepared to leave Docker Swarm, the container registry began its final
-    migration, and the internal developer portal started taking shape in
-    staging. Two security vulnerabilities were patched within days
-    of disclosure. Five initiatives advanced. None stalled. Every finish
-    line moved closer.
+    The container registry began its migration to platform-owned
+    infrastructure. Clearing — a regulated global payments provider — started
+    onboarding through a merger. The developer portal took shape. Change
+    management automation laid its foundations. Two security vulnerabilities
+    were patched within days. All advancing.
   ],
 )
 
@@ -60,9 +58,9 @@
     [#text(size: 7pt, weight: "bold", fill: gray)[State]],
     [#text(size: 7pt, weight: "bold", fill: gray)[What Shipped]],
 
-    [#text(size: 7pt, fill: gray)[Kafka → MSK]],
+    [#text(size: 7pt, fill: gray)[HS Vault → K8s]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
-    [#text(size: 6.5pt, fill: gray)[Dual-mode tooling live]],
+    [#text(size: 6.5pt, fill: gray)[LDT migrated, PROD pending]],
 
     [#text(size: 7pt, fill: gray)[Harbor Registry]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[ADVANCING]],
@@ -76,9 +74,9 @@
     [#text(size: 6.5pt, weight: "bold", fill: gray)[FOUNDATION]],
     [#text(size: 6.5pt, fill: gray)[API deployed, logic complete]],
 
-    [#text(size: 7pt, fill: gray)[Cost Optimization]],
-    [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
-    [#text(size: 6.5pt, fill: gray)[Spot reversed, savings active]],
+    [#text(size: 7pt, fill: gray)[Clearing Onboarding]],
+    [#text(size: 6.5pt, weight: "bold", fill: gray)[STARTING]],
+    [#text(size: 6.5pt, fill: gray)[GitLab, AWS bootstrap begun]],
 
     [#text(size: 7pt, fill: gray)[Security Response]],
     [#text(size: 6.5pt, weight: "bold", fill: red)[DONE]],
@@ -87,70 +85,6 @@
 ]
 
 #v(6mm)
-
-= The Assumption That Cost Us Money
-
-Spot instances were supposed to be cheaper. They were not.
-
-With AWS Savings Plans active, on-demand pricing dropped to \$0.095/hr — while spot remained at \$0.115/hr for the same instance type. The platform had been paying a 17% premium for *less* stability.
-
-#v(3mm)
-
-#cetz.canvas(length: 1mm, {
-  import cetz.draw: *
-
-  let bar-h = 7
-  let max-w = 45
-
-  // Spot bar (full width = more expensive)
-  rect((0, bar-h + 3), (max-w, 2 * bar-h + 3), fill: lightgray, stroke: none, radius: 2pt)
-  content((max-w + 2, bar-h + 3 + bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: gray)[Spot · \$0.115/hr]])
-
-  // On-demand bar (shorter = cheaper)
-  let od-w = max-w * 0.095 / 0.115
-  rect((0, 0), (od-w, bar-h), fill: red, stroke: none, radius: 2pt)
-  content((od-w + 2, bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: red)[On-Demand · \$0.095/hr]])
-})
-
-#v(2mm)
-#align(center)[
-  #text(size: 6pt, style: "italic", fill: gray)[17% cheaper. More stable. Previous assumption reversed.]
-]
-
-#v(4mm)
-
-Persistent workloads moved back to on-demand the same week. Only short-lived jobs — CI builds, data pipelines — remain on spot where interruption is acceptable.
-
-The platform reversed its own decision based on data. That takes more discipline than making the decision in the first place.
-
-= Kafka Started Packing
-
-Self-hosted Kafka on Docker Swarm is being replaced by AWS Managed Streaming for Kafka. The platform's job: make sure developers don't notice when it happens.
-
-That required building a tooling layer that works identically across both clusters — so the actual cutover becomes a configuration change, not a migration project for every team.
-
-What shipped:
-
-#v(3mm)
-
-#block(width: 100%, stroke: 0.5pt + lightgray, radius: 6pt, inset: 10pt)[
-  #text(size: 7pt, weight: "bold", fill: gray)[WHAT SHIPPED FOR MSK READINESS]
-  #v(3mm)
-  #text(size: 7pt, fill: gray)[
-    #grid(
-      columns: (1fr),
-      gutter: 2mm,
-      [*Topic management (Strimzi) now works across both Swarm and MSK* — topics propagated to LDT and PROD],
-      [*AKHQ deployed* — unified monitoring UI showing both clusters side by side],
-      [*mTLS certificates delivered* — JKS/PKCS12 formats with full Amazon CA chain. Java services can authenticate to MSK],
-      [*Strimzi CRDs managed independently* — ArgoCD with proper sync ordering],
-    )
-  ]
-]
-
-#v(4mm)
-
-The Kafka cluster itself moves when Infrastructure flips the switch. The tooling is already dual-mode. Services will not need to change.
 
 = Every Container Image Is Moving
 
@@ -261,12 +195,18 @@ Separately, the DigitalOcean Harbor cluster's Nginx ingress controller had an un
 
 Both responses followed the same pattern: detect, assess, act, verify. Days, not weeks.
 
+= A New Product Stack Arrived
+
+Clearing — a regulated global payment infrastructure provider — is merging into the Fortris ecosystem. Their engineering stack needs a home: source control, CI/CD pipelines, cloud accounts, runners, and deployment infrastructure.
+
+The platform started the onboarding work this month. Early steps: source repositories mirrored into GitLab, AWS account bootstrapping, initial pipeline configuration. Most of the work is still ahead — but the process is underway and the path is defined.
+
+This is what a platform is for — making the next team as productive as the first, without reinventing infrastructure.
+
 = Also This Month
 
-Preview environments became self-service — any team onboards with a single script. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums.
+Preview environments became self-service — any team onboards with a single script. The HashiCorp Vault migration to Kubernetes reached LDT — production is next, pending an infrastructure coordination window. A paid user account that CI pipelines used to automate Git operations was replaced with a free, purpose-built service account — EUR 400/year saved, permissions reduced from broad to minimal. Production Apple certificates were configured for macOS code signing — customers now receive properly signed binaries. Container image signing (cosign) was updated to fix the signing method. PACT contract testing was removed (unused). Temporal's Helm chart moved to official upstream. Bitnami chart proxies prevent rate-limit failures. Monitoring label limits protect the metrics pipeline. Desktop artifacts now publish to GitLab Releases with SHA checksums. A BTC block explorer was provisioned for the blockchain team's development environments.
 
-= What Comes Next
+Fewer surprises. Faster recovery. More trust by default.
 
-Next month: the old Harbor goes dark. The HashiCorp Vault moves to Kubernetes production. MSK gets closer to its first real traffic. The developer portal gains its first Kubernetes integration.
 
-The finish lines are in sight. Every one of them.

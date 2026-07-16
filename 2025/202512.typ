@@ -1,4 +1,5 @@
 #import "graceful-genetics/src/lib.typ" as graceful-genetics
+#import "@preview/cetz:0.4.2" as cetz
 
 // Fortris brand colors
 #let gray = rgb("#2f3849")
@@ -136,6 +137,40 @@ Changes are tested, promoted, and observed. Stability compounds. Trust builds.
 
 This is how a platform earns credibility — not through promises, but through
 behavior over time.
+
+= Spot Instances Were More Expensive Than On-Demand
+A counterintuitive discovery: with AWS Savings Plans active, spot instances cost *more* than on-demand for the same instance type.
+
+The numbers were clear — \$0.115/hr for spot versus \$0.095/hr for on-demand with Savings Plans applied. The platform had been paying a 17% premium for less stability.
+
+#v(3mm)
+
+#cetz.canvas(length: 1mm, {
+  import cetz.draw: *
+
+  let bar-h = 7
+  let max-w = 45
+
+  // Spot bar (full width = more expensive)
+  rect((0, bar-h + 3), (max-w, 2 * bar-h + 3), fill: lightgray, stroke: none, radius: 2pt)
+  content((max-w + 2, bar-h + 3 + bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: gray)[Spot · \$0.115/hr]])
+
+  // On-demand bar (shorter = cheaper)
+  let od-w = max-w * 0.095 / 0.115
+  rect((0, 0), (od-w, bar-h), fill: red, stroke: none, radius: 2pt)
+  content((od-w + 2, bar-h / 2), anchor: "west", [#text(size: 5.5pt, weight: "bold", fill: red)[On-Demand · \$0.095/hr]])
+})
+
+#v(2mm)
+#align(center)[
+  #text(size: 6pt, style: "italic", fill: gray)[17% cheaper. More stable. Previous assumption reversed.]
+]
+
+#v(4mm)
+
+Persistent workloads moved back to on-demand. Only short-lived jobs — CI builds, data pipelines — remain on spot where interruption is acceptable.
+
+The platform reversed its own decision based on data. That takes more discipline than making the decision in the first place.
 
 == The Shift You Can Feel
 None of these changes announce themselves loudly.

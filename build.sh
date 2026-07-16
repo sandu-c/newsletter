@@ -90,6 +90,35 @@ done
 echo ""
 
 # ============================================================================
+# Generate languages.json manifest
+# ============================================================================
+echo "  → generating languages.json"
+echo "{" > "$DIST/languages.json"
+FIRST_LANG="true"
+for pdf in $PDF_DIR/*.pdf; do
+  BASENAME=$(basename "$pdf" .pdf)
+  # Skip _es variants themselves
+  case "$BASENAME" in *_es) continue ;; esac
+  # Check if _es version exists
+  if [ -f "$PDF_DIR/${BASENAME}_es.pdf" ]; then
+    LANGS="[\"en\",\"es\"]"
+  else
+    LANGS="[\"en\"]"
+  fi
+  if [ "$FIRST_LANG" = "true" ]; then
+    FIRST_LANG="false"
+  else
+    echo "," >> "$DIST/languages.json"
+  fi
+  printf "  \"%s\": %s" "$BASENAME" "$LANGS" >> "$DIST/languages.json"
+done
+echo "" >> "$DIST/languages.json"
+echo "}" >> "$DIST/languages.json"
+echo "  ✓ languages.json generated"
+
+echo ""
+
+# ============================================================================
 # Generate index.html from all .typ files
 # ============================================================================
 echo "═══ Generating index ═══"
@@ -127,7 +156,7 @@ generate_cards() {
     <div class="article-card coming-next">
       <div class="card-date"><span class="coming-next-badge">Baking</span></div>
       <div class="card-title">${NEXT_MONTH} ${NEXT_YEAR}</div>
-      <div class="card-abstract"><span class="loading-dots">Preparing to serve</span></div>
+      <div class="card-abstract"><span class="loading-dots">🔥 Baking at 200°C. Still in the oven</span></div>
     </div>
 NEXTCARD
       fi
@@ -187,6 +216,13 @@ emit_card() {
     LATEST_CLASS=" latest"
   fi
 
+  # Check for translations
+  LANG_PILLS="<span class=\"lang-pill\">EN</span>"
+  ES_FILE=$(echo "$f" | sed 's/\.typ$/_es.typ/')
+  if [ -f "$ES_FILE" ]; then
+    LANG_PILLS="<span class=\"lang-pill\">EN</span><span class=\"lang-pill available\">ES</span>"
+  fi
+
   cat <<CARD
 
     <a href="viewer.html?pdf=pdfs/${BASENAME}.pdf" class="article-card ${FEATURED}${LATEST_CLASS}">
@@ -194,6 +230,7 @@ emit_card() {
       <div class="card-title">${TITLE}</div>
       <div class="card-abstract">${ABSTRACT}</div>
       <span class="card-cta">Read article →</span>
+      <div class="card-langs">${LANG_PILLS}</div>
     </a>
 CARD
 }
@@ -233,6 +270,22 @@ cat > "$DIST/index.html" <<'HEADER'
       color: var(--white);
       min-height: 100vh;
       line-height: 1.5;
+      position: relative;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .site-header, .container, .site-footer {
+      position: relative;
+      z-index: 1;
     }
 
     .site-header {
@@ -349,6 +402,29 @@ cat > "$DIST/index.html" <<'HEADER'
       display: inline-block; margin-top: 1rem;
       font-size: 0.75rem; font-weight: 700; color: var(--red);
       letter-spacing: 0.5px; text-transform: uppercase;
+    }
+
+    .article-card .card-langs {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .article-card .card-langs .lang-pill {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(201, 206, 216, 0.15);
+      color: var(--lightgray);
+    }
+
+    .article-card .card-langs .lang-pill.available {
+      background: rgba(240, 124, 112, 0.1);
+      color: var(--red);
     }
 
     .article-card:hover .card-cta { text-decoration: underline; }
@@ -473,6 +549,8 @@ cat > "$DIST/index.html" <<'HEADER'
 </head>
 <body>
 
+  <div id="particles-canvas"></div>
+
   <header class="site-header">
     <img src="images/logos/Fortris-white-logo---dark-background.png" alt="Fortris">
     <h1>Platform <strong>Engineering</strong></h1>
@@ -493,6 +571,33 @@ cat >> "$DIST/index.html" <<'FOOTER'
     Fortris · Infrastructure and Reliability · 2026
   </footer>
 
+  <script>
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+    script.onload = function() {
+      particlesJS('particles-canvas', {
+        "particles": {
+          "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": "#C9CED8" },
+          "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+          "opacity": { "value": 0.25, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+          "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+          "line_linked": { "enable": true, "distance": 150, "color": "#C9CED8", "opacity": 0.18, "width": 0.7 },
+          "move": { "enable": true, "speed": 0.2, "direction": "none", "random": true, "straight": false, "out_mode": "out", "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+          "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.6 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 80 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+        },
+        "retina_detect": true
+      });
+    };
+    document.head.appendChild(script);
+  })();
+  </script>
+
 </body>
 </html>
 FOOTER
@@ -504,6 +609,11 @@ echo "  ✓ index.html generated"
 # ============================================================================
 # Copy viewer (static template)
 cp viewer.html "$DIST/viewer.html" 2>/dev/null || echo "  ⚠ viewer.html missing"
+
+# Generate SHA256 checksums for all PDFs
+echo "  → generating checksums"
+(cd "$DIST/pdfs" && sha256sum *.pdf > ../checksums.sha256 2>/dev/null || shasum -a 256 *.pdf > ../checksums.sha256)
+echo "  ✓ checksums.sha256 generated"
 
 echo ""
 echo "═══ Done ═══"
