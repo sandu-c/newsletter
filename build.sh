@@ -223,13 +223,20 @@ emit_card() {
     LANG_PILLS="<span class=\"lang-pill\">EN</span><span class=\"lang-pill available\">ES</span>"
   fi
 
+  # Check for TLDR
+  TLDR_FILE=$(echo "$f" | sed 's/\.typ$/_tldr.md/')
+  CARD_CLICK=""
+  if [ -f "$TLDR_FILE" ]; then
+    CARD_CLICK="onclick=\"event.preventDefault(); openTldr('${BASENAME}')\""
+  fi
+
   cat <<CARD
 
-    <a href="viewer.html?pdf=pdfs/${BASENAME}.pdf" class="article-card ${FEATURED}${LATEST_CLASS}">
+    <a href="viewer.html?pdf=pdfs/${BASENAME}.pdf" class="article-card ${FEATURED}${LATEST_CLASS}" ${CARD_CLICK}>
       <div class="card-date">${DATE_LABEL}${BADGE_HTML}</div>
       <div class="card-title">${TITLE}</div>
       <div class="card-abstract">${ABSTRACT}</div>
-      <span class="card-cta">Read article →</span>
+      <span class="card-cta card-cta-article" onclick="event.stopPropagation(); window.location.href='viewer.html?pdf=pdfs/${BASENAME}.pdf'">Read full article →</span>
       <div class="card-langs">${LANG_PILLS}</div>
     </a>
 CARD
@@ -404,6 +411,147 @@ cat > "$DIST/index.html" <<'HEADER'
       letter-spacing: 0.5px; text-transform: uppercase;
     }
 
+    .article-card .card-cta-article {
+      position: relative;
+      z-index: 2;
+    }
+
+    .article-card .card-cta-article:hover {
+      text-decoration: underline;
+    }
+
+    /* Sidebar panel */
+    .tldr-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overscroll-behavior: contain;
+    }
+
+    .tldr-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .tldr-panel {
+      position: fixed;
+      top: 0;
+      right: -480px;
+      width: 480px;
+      height: 100%;
+      background: #1a1f2b;
+      z-index: 1001;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -8px 0 30px rgba(0,0,0,0.4);
+    }
+
+    .tldr-panel.active {
+      right: 0;
+    }
+
+    .tldr-panel-header {
+      position: sticky;
+      top: 0;
+      background: #222832;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .tldr-panel-header .close-btn {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.3rem;
+      line-height: 1;
+    }
+
+    .tldr-panel-header .close-btn:hover { color: var(--red); }
+
+    .tldr-panel-header span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .tldr-read-article {
+      color: #F07C70;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      animation: heartbeat 3s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 80%, 100% { transform: scale(1); opacity: 0.85; }
+      85% { transform: scale(1.12); opacity: 1; }
+      90% { transform: scale(1); opacity: 0.85; }
+      95% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .tldr-panel-content {
+      padding: 0;
+      position: relative;
+      height: calc(100vh - 56px);
+    }
+
+    .tldr-panel-content iframe {
+      width: 100%;
+      height: calc(100% - 52px);
+      border: none;
+    }
+
+    .tldr-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(to top, rgba(26, 31, 43, 1) 60%, rgba(26, 31, 43, 0));
+      color: var(--red);
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: block;
+      padding-top: 2rem;
+    }
+
+    .tldr-bottom-bar span {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border: 1.5px solid var(--red);
+      border-radius: 24px;
+      transition: all 0.2s ease;
+      animation: heartbeat 3s ease-in-out infinite;
+    }
+
+    .tldr-bottom-bar:hover span {
+      background: var(--red);
+      color: #fff;
+      animation: none;
+    }
+
+    @media (max-width: 500px) {
+      .tldr-panel { width: 100%; right: -100%; }
+    }
+
     .article-card .card-langs {
       position: absolute;
       bottom: 1.2rem;
@@ -427,7 +575,11 @@ cat > "$DIST/index.html" <<'HEADER'
       color: var(--red);
     }
 
-    .article-card:hover .card-cta { text-decoration: underline; }
+    .article-card:hover .card-cta { text-decoration: none; }
+
+    .article-card .card-cta-article:hover {
+      text-decoration: underline;
+    }
 
     .article-card.featured {
       background: var(--gray);
@@ -598,6 +750,50 @@ cat >> "$DIST/index.html" <<'FOOTER'
   })();
   </script>
 
+  <!-- TLDR Sidebar Panel -->
+  <div class="tldr-overlay" id="tldr-overlay" onclick="closeTldr()"></div>
+  <div class="tldr-panel" id="tldr-panel">
+    <div class="tldr-panel-header">
+      <span>Quick Look</span>
+      <button class="close-btn" onclick="closeTldr()">✕</button>
+    </div>
+    <div class="tldr-panel-content" id="tldr-panel-content"></div>
+  </div>
+
+  <script>
+  function openTldr(basename) {
+    var panel = document.getElementById('tldr-panel');
+    var overlay = document.getElementById('tldr-overlay');
+    var content = document.getElementById('tldr-panel-content');
+    var header = document.querySelector('.tldr-panel-header');
+    // Lock body scroll
+    document.body.style.overflow = 'hidden';
+    // Reset header
+    header.innerHTML = '<span>Quick Look</span>' +
+      '<button class="close-btn" onclick="closeTldr()">✕</button>';
+    content.innerHTML = '<iframe src="tldr/' + basename + '_tldr.html"></iframe>' +
+      '<a href="viewer.html?pdf=pdfs/' + basename + '.pdf" class="tldr-bottom-bar"><span>Want the full story? →</span></a>';
+    setTimeout(function() {
+      overlay.classList.add('active');
+      panel.classList.add('active');
+    }, 10);
+  }
+
+  function closeTldr() {
+    document.getElementById('tldr-panel').classList.remove('active');
+    document.getElementById('tldr-overlay').classList.remove('active');
+    // Unlock body scroll
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      document.getElementById('tldr-panel-content').innerHTML = '';
+    }, 350);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeTldr();
+  });
+  </script>
+
 </body>
 </html>
 FOOTER
@@ -609,6 +805,21 @@ echo "  ✓ index.html generated"
 # ============================================================================
 # Copy viewer (static template)
 cp viewer.html "$DIST/viewer.html" 2>/dev/null || echo "  ⚠ viewer.html missing"
+
+# Generate TLDRs from _tldr.md files
+echo "  → generating TLDRs"
+mkdir -p "$DIST/tldr"
+for md in 20*/*_tldr.md; do
+  [ -f "$md" ] || continue
+  TLDR_OUT="$DIST/tldr/$(basename "$md" .md).html"
+  sh generate_tldr.sh "$md" > /dev/null 2>&1
+  # Move generated html to dist/tldr/
+  GENERATED=$(echo "$md" | sed 's/\.md$/.html/')
+  if [ -f "$GENERATED" ]; then
+    mv "$GENERATED" "$TLDR_OUT"
+    echo "    ✓ $(basename "$TLDR_OUT")"
+  fi
+done
 
 # Generate SHA256 checksums for all PDFs
 echo "  → generating checksums"
