@@ -275,7 +275,7 @@ EOF
         echo '    </div>' >> "$OUTPUT"
       fi
       ;;
-    bullets)
+    plain)
       cat >> "$OUTPUT" << EOF
     <h3>${current_title}</h3>
     <p>${current_description}</p>
