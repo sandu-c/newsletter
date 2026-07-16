@@ -11,7 +11,7 @@
   authors: (
     (
       name: "July 2025",
-      department: "Infrastructure and Reliability",
+      department: "Platform Engineering",
       institution: "Fortris",
       city: "Remote",
       country: "Global",

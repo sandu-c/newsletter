@@ -12,7 +12,7 @@
   authors: (
     (
       name: "Mayo 2026",
-      department: "Infraestructura y Fiabilidad",
+      department: "Platform Engineering",
       institution: "",
       city: "Remoto",
       country: "Global",

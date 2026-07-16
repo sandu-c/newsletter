@@ -12,7 +12,7 @@
   authors: (
     (
       name: "Leveling-up the Platform",
-      department: "Infrastructure and Reliability",
+      department: "Platform Engineering",
       institution: "",
       city: "Malaga",
       country: "Spain",
